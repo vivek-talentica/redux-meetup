@@ -1,5 +1,5 @@
 import React from "react";
-const fruitColors = ["red", "green", "yellow", "orange"];
+const fruitColors = ["Select", "red", "green", "yellow", "orange"];
 
 class AddModifyFruit extends React.Component {
   constructor(props) {
