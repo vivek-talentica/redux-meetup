@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import AddModifyFruit from "./components/AddModifyFruit";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fruitList: [],
+      showAllFruits: true,
+    };
+  }
+
+  toggleShowFruitsFlag = () =>
+    this.setState({ showAllFruits: !this.state.showAllFruits });
+
+  addFruit = fruit =>
+    this.setState({ fruitList: [...this.state.fruitList, fruit] });
+
+  changeColor = updatedFruit => {
+    let fruitList = this.state.fruitList.map(fruit => {
+      if (fruit.fruitName === updatedFruit.fruitName) {
+        return updatedFruit;
+      }
+      return fruit;
+    });
+    this.setState({ fruitList });
+  };
+
+  render() {
+    const { showAllFruits } = this.state;
+
+    return (
+      <div className="App">
+        <AddModifyFruit
+          addFruit={this.addFruit}
+          changeColor={this.changeColor}
+        />
+        <div style={{ marginTop: "10px" }}>
+          <input
+            type="checkbox"
+            checked={this.state.showAllFruits}
+            onClick={this.toggleShowFruitsFlag}
+          />
+          <label>Show all fruits</label>
+        </div>
+        {showAllFruits && (
+          <ul style={{ listStyle: "none", marginTop: "10px" }}>
+            {this.state.fruitList.map((fruit, index) => {
+              return (
+                <li style={{ color: fruit.fruitColor }}>
+                  <b>
+                    {" "}
+                    {index + 1}) {fruit.fruitName}
+                  </b>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;
