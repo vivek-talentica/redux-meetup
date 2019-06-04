@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import AddModifyFruit from "./components/AddModifyFruit";
+import store from "./reducers";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,11 +12,18 @@ class App extends React.Component {
     };
   }
 
-  toggleShowFruitsFlag = () =>
-    this.setState({ showAllFruits: !this.state.showAllFruits });
+  componentDidMount() {
+    const listener = () => {
+      const { fruitList, showAllFruits } = store.getState();
+      this.setState({ fruitList, showAllFruits });
+      console.log("State is", store.getState());
+    };
 
-  addFruit = fruit =>
-    this.setState({ fruitList: [...this.state.fruitList, fruit] });
+    store.subscribe(listener);
+  }
+
+  toggleShowFruitsFlag = () =>
+    store.dispatch({ type: "toggleFruitsVisibility" });
 
   changeColor = updatedFruit => {
     let fruitList = this.state.fruitList.map(fruit => {
@@ -32,15 +40,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <AddModifyFruit
-          addFruit={this.addFruit}
-          changeColor={this.changeColor}
-        />
+        <AddModifyFruit changeColor={this.changeColor} />
         <div style={{ marginTop: "10px" }}>
           <input
             type="checkbox"
             checked={this.state.showAllFruits}
-            onClick={this.toggleShowFruitsFlag}
+            onChange={this.toggleShowFruitsFlag}
           />
           <label>Show all fruits</label>
         </div>
@@ -48,7 +53,7 @@ class App extends React.Component {
           <ul style={{ listStyle: "none", marginTop: "10px" }}>
             {this.state.fruitList.map((fruit, index) => {
               return (
-                <li style={{ color: fruit.fruitColor }}>
+                <li key={fruit.fruitName} style={{ color: fruit.fruitColor }}>
                   <b>
                     {" "}
                     {index + 1}) {fruit.fruitName}

@@ -1,4 +1,6 @@
 import React from "react";
+import store from "./../../reducers";
+
 const fruitColors = ["Select", "red", "green", "yellow", "orange"];
 
 class AddModifyFruit extends React.Component {
@@ -12,17 +14,26 @@ class AddModifyFruit extends React.Component {
   }
 
   addFruit = () => {
-    this.props.addFruit({
-      fruitName: this.state.fruitName,
-      fruitColor: this.state.fruitColor,
-    });
+    const addFruitAction = {
+      type: "addFruit",
+      payload: {
+        fruitName: this.state.fruitName,
+        fruitColor: this.state.fruitColor,
+      },
+    };
+
+    store.dispatch(addFruitAction);
   };
 
   changeColor = () => {
-    this.props.changeColor({
-      fruitName: this.state.fruitName,
-      fruitColor: this.state.fruitColor,
-    });
+    const updateFruitAction = {
+      type: "updateFruit",
+      payload: {
+        fruitName: this.state.fruitName,
+        fruitColor: this.state.fruitColor,
+      },
+    };
+    store.dispatch(updateFruitAction);
   };
 
   setFruitName = e => {
@@ -46,9 +57,9 @@ class AddModifyFruit extends React.Component {
         </div>
         <div style={{ marginTop: "10px" }}>
           <label>Fruit color: </label>
-          <select onChange={this.setFruitColor}>
+          <select onChange={this.setFruitColor} value={this.state.fruitColor}>
             {fruitColors.map(color => (
-              <option value={color} selected={this.state.fruitColor === color}>
+              <option value={color} key={color}>
                 {color}
               </option>
             ))}
