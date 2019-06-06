@@ -1,5 +1,5 @@
 import React from "react";
-import store from "./../../reducers";
+import { connect } from "react-redux";
 
 const fruitColors = ["Select", "red", "green", "yellow", "orange"];
 
@@ -14,26 +14,17 @@ class AddModifyFruit extends React.Component {
   }
 
   addFruit = () => {
-    const addFruitAction = {
-      type: "addFruit",
-      payload: {
-        fruitName: this.state.fruitName,
-        fruitColor: this.state.fruitColor,
-      },
-    };
-
-    store.dispatch(addFruitAction);
+    this.props.addFruitToStore({
+      fruitName: this.state.fruitName,
+      fruitColor: this.state.fruitColor,
+    });
   };
 
   changeColor = () => {
-    const updateFruitAction = {
-      type: "updateFruit",
-      payload: {
-        fruitName: this.state.fruitName,
-        fruitColor: this.state.fruitColor,
-      },
-    };
-    store.dispatch(updateFruitAction);
+    this.props.updateFruitColorInStore({
+      fruitName: this.state.fruitName,
+      fruitColor: this.state.fruitColor,
+    });
   };
 
   setFruitName = e => {
@@ -75,5 +66,30 @@ class AddModifyFruit extends React.Component {
     );
   }
 }
+const mapStateToProp = state => {
+  return {};
+};
 
-export default AddModifyFruit;
+const addFruitActionCreator = payload => {
+  return {
+    type: "addFruit",
+    payload,
+  };
+};
+
+const updateFruitColorActionCreator = payload => {
+  return {
+    type: "updateFruit",
+    payload,
+  };
+};
+
+const mapDispatchToProps = {
+  addFruitToStore: addFruitActionCreator,
+  updateFruitColorInStore: updateFruitColorActionCreator,
+};
+
+export default connect(
+  mapStateToProp,
+  mapDispatchToProps
+)(AddModifyFruit);

@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import AddModifyFruit from "./components/AddModifyFruit";
-import store from "./reducers";
+import { connect } from "react-redux";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,35 +12,21 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const listener = () => {
-      const { fruitList, showAllFruits } = store.getState();
-      this.setState({ fruitList, showAllFruits });
-      console.log("State is", store.getState());
-    };
-
-    store.subscribe(listener);
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      fruitList: nextProps.fruitList,
+      showAllFruits: nextProps.showAllFruits,
+    });
   }
 
-  toggleShowFruitsFlag = () =>
-    store.dispatch({ type: "toggleFruitsVisibility" });
-
-  changeColor = updatedFruit => {
-    let fruitList = this.state.fruitList.map(fruit => {
-      if (fruit.fruitName === updatedFruit.fruitName) {
-        return updatedFruit;
-      }
-      return fruit;
-    });
-    this.setState({ fruitList });
-  };
+  toggleShowFruitsFlag = this.props.toggleShowFruitsFlag;
 
   render() {
     const { showAllFruits } = this.state;
 
     return (
       <div className="App">
-        <AddModifyFruit changeColor={this.changeColor} />
+        <AddModifyFruit />
         <div style={{ marginTop: "10px" }}>
           <input
             type="checkbox"
@@ -68,4 +54,17 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const toggleShowFruitsFlagActionCreator = () => {
+  return {
+    type: "toggleFruitsVisibility",
+  };
+};
+export default connect(
+  function(state) {
+    return {
+      fruitList: state.fruitList,
+      showAllFruits: state.showAllFruits,
+    };
+  },
+  { toggleShowFruitsFlag: toggleShowFruitsFlagActionCreator }
+)(App);
