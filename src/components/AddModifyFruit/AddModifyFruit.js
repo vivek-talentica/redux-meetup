@@ -13,6 +13,12 @@ class AddModifyFruit extends React.Component {
     };
   }
 
+  componentDidMount() {
+    fetch("http://localhost:3000/fruits")
+      .then(response => response.json())
+      .then(data => {});
+  }
+
   addFruit = () => {
     this.props.addFruitToStore({
       fruitName: this.state.fruitName,

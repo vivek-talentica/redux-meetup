@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from "redux";
+// import { logger } from "./../middlewares";
 
 const fruitList = (state = [], action) => {
   switch (action.type) {

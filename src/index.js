@@ -5,6 +5,49 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./reducers";
 import { Provider } from "react-redux";
+const logMyAction = action => console.log("In Logger", JSON.stringify(action));
+const sendToGoogleAnalytics = action =>
+  console.log("In analytics", JSON.stringify(action));
+// const validateAction = action =>
+//   console.log("In validate", JSON.stringify(action));
+
+// let orignalDispatch = store.dispatch;
+// store.dispatch = action => {
+//   // These functions are middleware
+//   logMyAction(action);
+//   orignalDispatch(action);
+// };
+
+// let dispatch2 = store.dispatch;
+// store.dispatch = action => {
+//   sendToGoogleAnalytics(action);
+//   dispatch2(action);
+// };
+
+// let dispatch3 = store.dispatch;
+// store.dispatch = action => {
+//   validateAction(action);
+//   dispatch3(action);
+// };
+
+// const loggerMiddleware = store => updatedDispatch => action => {
+//   logMyAction(action);
+//   return updatedDispatch(action);
+// };
+
+// const analyticsMiddleware = store => updatedDispatch => action => {
+//   sendToGoogleAnalytics(action);
+//   return updatedDispatch(action);
+// };
+
+// const applyMiddleware = (store, middlewares) => {
+//   middlewares.forEach(middleware => {
+//     const next = store.dispatch;
+//     store.dispatch = middleware(store)(next);
+//   });
+// };
+
+// applyMiddleware(store, [loggerMiddleware, analyticsMiddleware]);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -13,7 +56,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
