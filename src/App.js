@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import AddModifyFruit from "./components/AddModifyFruit";
+import { store } from "./index";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,20 +12,34 @@ class App extends React.Component {
     };
   }
 
-  toggleShowFruitsFlag = () =>
-    this.setState({ showAllFruits: !this.state.showAllFruits });
+  componentDidMount() {
+    store.subscribe(() => {
+      let currentState = store.getState();
+      this.setState({
+        fruitList: currentState.fruitList,
+        showAllFruits: currentState.fruitVisibility,
+      });
+    });
+  }
 
-  addFruit = fruit =>
-    this.setState({ fruitList: [...this.state.fruitList, fruit] });
+  toggleShowFruitsFlag = () =>
+    store.dispatch({
+      type: "toggleVisibility",
+    });
+
+  addFruit = fruit => {
+    //fruit ~ {fruitName:"", fruitColor:""}
+    store.dispatch({
+      type: "addFruit",
+      payload: fruit,
+    });
+  };
 
   changeColor = updatedFruit => {
-    let fruitList = this.state.fruitList.map(fruit => {
-      if (fruit.fruitName === updatedFruit.fruitName) {
-        return updatedFruit;
-      }
-      return fruit;
+    store.dispatch({
+      type: "updateFruit",
+      payload: updatedFruit,
     });
-    this.setState({ fruitList });
   };
 
   render() {
