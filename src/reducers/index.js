@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from "redux";
 // import { logger } from "./../middlewares";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const fruitList = (state = [], action) => {
   switch (action.type) {
@@ -30,5 +31,8 @@ const showAllFruits = (state = true, action) => {
       return state;
   }
 };
-
-export default createStore(combineReducers({ fruitList, showAllFruits }));
+const composeEnhancer = composeWithDevTools({ trace: true });
+export default createStore(
+  combineReducers({ fruitList, showAllFruits }),
+  composeEnhancer()
+);
