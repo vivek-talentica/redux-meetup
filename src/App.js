@@ -40,7 +40,7 @@ class App extends React.Component {
           <input
             type="checkbox"
             checked={this.state.showAllFruits}
-            onClick={this.toggleShowFruitsFlag}
+            onChange={this.toggleShowFruitsFlag}
           />
           <label>Show all fruits</label>
         </div>
@@ -48,7 +48,7 @@ class App extends React.Component {
           <ul style={{ listStyle: "none", marginTop: "10px" }}>
             {this.state.fruitList.map((fruit, index) => {
               return (
-                <li style={{ color: fruit.fruitColor }}>
+                <li style={{ color: fruit.fruitColor }} key={index}>
                   <b>
                     {" "}
                     {index + 1}) {fruit.fruitName}

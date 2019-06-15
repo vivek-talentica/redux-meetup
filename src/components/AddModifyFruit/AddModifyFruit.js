@@ -46,9 +46,9 @@ class AddModifyFruit extends React.Component {
         </div>
         <div style={{ marginTop: "10px" }}>
           <label>Fruit color: </label>
-          <select onChange={this.setFruitColor}>
-            {fruitColors.map(color => (
-              <option value={color} selected={this.state.fruitColor === color}>
+          <select onChange={this.setFruitColor} value={this.state.fruitColor}>
+            {fruitColors.map((color, index) => (
+              <option value={color} key={index}>
                 {color}
               </option>
             ))}
