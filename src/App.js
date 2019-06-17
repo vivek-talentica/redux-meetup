@@ -54,7 +54,7 @@ class App extends React.Component {
         <div style={{ marginTop: "10px" }}>
           <input
             type="checkbox"
-            checked={this.state.showAllFruits}
+            checked={showAllFruits}
             onChange={this.toggleShowFruitsFlag}
           />
           <label>Show all fruits</label>
