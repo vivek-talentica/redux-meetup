@@ -7,8 +7,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fruitList: [],
-      showAllFruits: true,
+      fruitList: props.fruitList,
+      showAllFruits: props.showAllFruits,
     };
   }
 
@@ -56,15 +56,22 @@ class App extends React.Component {
 
 const toggleShowFruitsFlagActionCreator = () => {
   return {
-    type: "toggleFruitsVisibility",
+    type: "toggleVisibility",
   };
 };
+
+const mapStateToProps = state => {
+  return {
+    fruitList: state.fruitList,
+    showAllFruits: state.showAllFruits,
+  };
+};
+
+const mapDispatchToProps = {
+  toggleShowFruitsFlag: toggleShowFruitsFlagActionCreator,
+};
+
 export default connect(
-  function(state) {
-    return {
-      fruitList: state.fruitList,
-      showAllFruits: state.showAllFruits,
-    };
-  },
-  { toggleShowFruitsFlag: toggleShowFruitsFlagActionCreator }
+  mapStateToProps,
+  mapDispatchToProps
 )(App);

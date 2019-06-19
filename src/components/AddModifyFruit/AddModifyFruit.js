@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 const fruitColors = ["Select", "red", "green", "yellow", "orange"];
 
 class AddModifyFruit extends React.Component {
@@ -66,9 +65,6 @@ class AddModifyFruit extends React.Component {
     );
   }
 }
-const mapStateToProp = state => {
-  return {};
-};
 
 const addFruitActionCreator = payload => {
   return {
@@ -90,6 +86,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  mapStateToProp,
+  null,
   mapDispatchToProps
 )(AddModifyFruit);
