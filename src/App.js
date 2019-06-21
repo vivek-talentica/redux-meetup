@@ -71,6 +71,8 @@ const mapDispatchToProps = {
   toggleShowFruitsFlag: toggleShowFruitsFlagActionCreator,
 };
 
+// export default App;
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

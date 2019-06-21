@@ -1,5 +1,4 @@
 export const fruitListReducer = (state = [], action) => {
-  debugger;
   switch (action.type) {
     case "addFruit":
       return [...state, action.payload];
