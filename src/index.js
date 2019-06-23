@@ -2,18 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import store from "./reducers";
+import { fruitListReducer, showAllFruitsReducer } from "./reducers";
 import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { combineReducers, createStore } from "redux";
+
 const logMyAction = action => console.log("In Logger", JSON.stringify(action));
-const sendToGoogleAnalytics = action =>
-  console.log("In analytics", JSON.stringify(action));
+
+// const sendToGoogleAnalytics = action =>
+//   console.log("In analytics", JSON.stringify(action));
 // const validateAction = action =>
 //   console.log("In validate", JSON.stringify(action));
 
 // let orignalDispatch = store.dispatch;
+
 // store.dispatch = action => {
-//   // These functions are middleware
 //   logMyAction(action);
 //   orignalDispatch(action);
 // };
@@ -47,6 +50,12 @@ const sendToGoogleAnalytics = action =>
 //   });
 // };
 
+const store = createStore(
+  combineReducers({
+    fruitList: fruitListReducer,
+    showAllFruits: showAllFruitsReducer,
+  })
+);
 // applyMiddleware(store, [loggerMiddleware, analyticsMiddleware]);
 
 ReactDOM.render(
@@ -55,5 +64,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-serviceWorker.unregister();

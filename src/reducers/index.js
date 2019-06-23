@@ -1,8 +1,4 @@
-import { createStore, combineReducers } from "redux";
-// import { logger } from "./../middlewares";
-import { composeWithDevTools } from "redux-devtools-extension";
-
-const fruitList = (state = [], action) => {
+export const fruitListReducer = (state = [], action) => {
   switch (action.type) {
     case "addFruit": {
       return [...state, action.payload];
@@ -23,7 +19,7 @@ const fruitList = (state = [], action) => {
   }
 };
 
-const showAllFruits = (state = true, action) => {
+export const showAllFruitsReducer = (state = true, action) => {
   switch (action.type) {
     case "toggleFruitsVisibility":
       return !state;
@@ -31,8 +27,3 @@ const showAllFruits = (state = true, action) => {
       return state;
   }
 };
-const composeEnhancer = composeWithDevTools({ trace: true });
-export default createStore(
-  combineReducers({ fruitList, showAllFruits }),
-  composeEnhancer()
-);
