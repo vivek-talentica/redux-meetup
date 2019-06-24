@@ -32,32 +32,50 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <AddModifyFruit
-          addFruit={this.addFruit}
-          changeColor={this.changeColor}
-        />
-        <div style={{ marginTop: "10px" }}>
-          <input
-            type="checkbox"
-            checked={this.state.showAllFruits}
-            onChange={this.toggleShowFruitsFlag}
-          />
-          <label>Show all fruits</label>
+        <div
+          style={{
+            border: "2px solid orange",
+            width: "60%",
+            padding: "10px",
+            borderRadius: "4px",
+          }}
+        >
+          <div
+            style={{
+              border: "2px solid green",
+              width: "60%",
+              padding: "10px",
+              borderRadius: "4px",
+            }}
+          >
+            <AddModifyFruit
+              addFruit={this.addFruit}
+              changeColor={this.changeColor}
+            />
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="checkbox"
+              checked={this.state.showAllFruits}
+              onChange={this.toggleShowFruitsFlag}
+            />
+            <label>Show all fruits</label>
+          </div>
+          {showAllFruits && (
+            <ul style={{ listStyle: "none", marginTop: "10px" }}>
+              {this.state.fruitList.map((fruit, index) => {
+                return (
+                  <li style={{ color: fruit.fruitColor }} key={index}>
+                    <b>
+                      {" "}
+                      {index + 1}) {fruit.fruitName}
+                    </b>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
-        {showAllFruits && (
-          <ul style={{ listStyle: "none", marginTop: "10px" }}>
-            {this.state.fruitList.map((fruit, index) => {
-              return (
-                <li style={{ color: fruit.fruitColor }} key={index}>
-                  <b>
-                    {" "}
-                    {index + 1}) {fruit.fruitName}
-                  </b>
-                </li>
-              );
-            })}
-          </ul>
-        )}
       </div>
     );
   }
