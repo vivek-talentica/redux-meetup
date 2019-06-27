@@ -19,8 +19,6 @@ class App extends React.Component {
     });
   }
 
-  toggleShowFruitsFlag = this.props.toggleShowFruitsFlag;
-
   render() {
     const { showAllFruits } = this.state;
 
@@ -31,7 +29,7 @@ class App extends React.Component {
           <input
             type="checkbox"
             checked={this.state.showAllFruits}
-            onChange={this.toggleShowFruitsFlag}
+            onChange={this.props.toggleShowFruitsFlag}
           />
           <label>Show all fruits</label>
         </div>
