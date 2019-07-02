@@ -65,8 +65,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  toggleShowFruitsFlag: toggleShowFruitsFlagActionCreator,
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    toggleShowFruitsFlag: () => dispatch(toggleShowFruitsFlagActionCreator()),
+  };
 };
 
 // export default App;
