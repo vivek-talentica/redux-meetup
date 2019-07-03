@@ -16,6 +16,11 @@ const store = createStore(
 
 const logMyAction = action => console.log("In Logger", JSON.stringify(action));
 
+// const logAndDispatch = action => {
+//     logMyAction(action);
+//     store.dispatch(action)
+// }
+
 // const sendToGoogleAnalytics = action =>
 //   console.log("In analytics", JSON.stringify(action));
 // const validateAction = action =>
