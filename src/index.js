@@ -7,6 +7,13 @@ import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { combineReducers, createStore } from "redux";
 
+const store = createStore(
+  combineReducers({
+    fruitList: fruitListReducer,
+    showAllFruits: showAllFruitsReducer,
+  })
+);
+
 const logMyAction = action => console.log("In Logger", JSON.stringify(action));
 
 // const sendToGoogleAnalytics = action =>
@@ -50,12 +57,6 @@ const logMyAction = action => console.log("In Logger", JSON.stringify(action));
 //   });
 // };
 
-const store = createStore(
-  combineReducers({
-    fruitList: fruitListReducer,
-    showAllFruits: showAllFruitsReducer,
-  })
-);
 // applyMiddleware(store, [loggerMiddleware, analyticsMiddleware]);
 
 ReactDOM.render(
