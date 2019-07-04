@@ -3,14 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { fruitListReducer, fruitVisibilityReducer } from "./Reducer/reducer";
-import { combineReducers, createStore } from "redux";
+import combinedReducer from "./Reducer";
+import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-const combinedReducer = combineReducers({
-  fruitList: fruitListReducer,
-  showAllFruits: fruitVisibilityReducer,
-});
-const store = createStore(combinedReducer);
+const store = createStore(combinedReducer, composeWithDevTools());
+
+if (module.hot) {
+  module.hot.accept("./Reducer/index", () => {
+    const nextRootReducer = require("./Reducer/index").default;
+    store.replaceReducer(nextRootReducer);
+  });
+}
 
 ReactDOM.render(
   <Provider store={store}>
