@@ -1,4 +1,4 @@
-export const logger = store => next => action => {
+export const thunkMiddleware = store => next => action => {
   if (typeof action === "function") {
     return action(store.dispatch);
   }
